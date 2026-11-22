@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "echo-windows": {
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "C:\\workspace\\hello-genai\\path\\to\\mcp-echo.ps1"]
+    },
+    "get_time": {
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "C:\\workspace\\hello-genai\\path\\to\\mcp-echo.ps1", "-ToolNames", "get_time"]
+    },
+    "calculator": {
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "C:\\workspace\\hello-genai\\path\\to\\mcp-echo.ps1", "-ToolNames", "calculator"]
+    }
+  }
+}
