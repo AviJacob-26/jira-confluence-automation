@@ -1,4 +1,4 @@
-# Feature Specification: Stand-up Notes to Jira Issues
+# Feature Specification: Stand-up Notes to Jira and Confluence Automation
 
 **Feature Branch**: `not-assigned`
 
@@ -6,7 +6,18 @@
 
 **Status**: Draft
 
-**Input**: User description: "Build an internal web application for a project manager to submit production-support stand-up notes, review evidence-backed action proposals, check for likely Jira duplicates, and create only individually approved Jira issues."
+**Input**: User description: "Build an internal web application for the project manager to submit production-support stand-up notes, review evidence-backed action proposals, avoid likely Jira duplicates, create only individually approved Jira issues, and support defined Confluence automation workflows."
+
+## Users and Permissions
+
+- **Only application user for the initial release**: The project manager overseeing the 14-person production-support team. No other application user role is in scope.
+- The project manager submits notes, reviews and edits candidates, and approves or rejects each Jira candidate individually.
+- The identity provider and application sign-in method are **[NEEDS CLARIFICATION: authentication method is undecided]**.
+- Atlassian access must follow the project constitution's least-privilege and explicit-authorization principles. The Jira/Confluence authentication method and permissions are **[NEEDS CLARIFICATION: approved Atlassian authorization approach is undecided]**.
+
+## Confluence Scope
+
+Confluence automation is in scope for this feature, as confirmed by the user. The specific user workflows and operations have not yet been defined. This specification does not assume whether the application will search, read, create, or update Confluence content, or which spaces and pages it may access. Each operation must be specified and reviewed before implementation; no unspecified Confluence operation may be performed.
 
 ## User Scenarios & Testing
 
@@ -70,13 +81,13 @@ The project manager edits each non-duplicate draft, approves or rejects it indep
 - Jira creation times out after the request may have reached Jira.
 - The same candidate is submitted for creation more than once.
 - A user attempts to approve a candidate without the required authorization.
-- A user requests Confluence automation. No Confluence workflow is defined by this feature specification; the request must not trigger an unspecified read or write operation.
+- A request involves a Confluence operation that is not specified and approved; the system does not perform that operation.
 
 ## Requirements
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST restrict the initial application to authorized internal users. The identity provider and authorization configuration are **[NEEDS CLARIFICATION: internal identity provider and access policy are not specified]**.
+- **FR-001**: The system MUST restrict the initial application to the project manager. No other application user role is in scope for the initial release. The identity provider and sign-in method are **[NEEDS CLARIFICATION: authentication method is undecided]**.
 - **FR-002**: The system MUST allow a user to provide meeting notes through text entry and file upload.
 - **FR-003**: The supported upload formats, maximum file size, and supported languages MUST be confirmed before file processing is enabled **[NEEDS CLARIFICATION: formats, size limits, and languages are unspecified]**.
 - **FR-004**: The system MUST preserve the source notes, or a protected reference to them, for the duration of the processing session so the user can verify proposed actions.
@@ -101,7 +112,7 @@ The project manager edits each non-duplicate draft, approves or rejects it indep
 - **FR-023**: The system MUST protect meeting notes and extracted content in transit and at rest, and MUST avoid logging full notes, credentials, or unnecessary personal data.
 - **FR-024**: The system MUST NOT send notes to an external extraction provider until the provider, data-handling terms, and organizational approval are confirmed **[NEEDS CLARIFICATION: extraction provider and approval are unspecified]**.
 - **FR-025**: Retention and deletion behavior for notes, drafts, decisions, duplicate matches, and results MUST be defined before production use **[NEEDS CLARIFICATION: persistence duration and deletion policy are unspecified]**.
-- **FR-026**: This feature MUST NOT perform Confluence reads or writes. Confluence use requires a separate, reviewed specification defining permitted operations, authorization, and approval behavior **[NEEDS CLARIFICATION: Confluence workflows are not defined]**.
+- **FR-026**: Confluence automation is in scope, but no specific Confluence operation is approved by the current requirements. The system MUST NOT perform a Confluence operation until its user goal, content/space scope, authorization, behavior, failure handling, and acceptance criteria are added to this specification and reviewed. Any operation that creates or changes Confluence content MUST require explicit authorization from the authenticated user **[NEEDS CLARIFICATION: Confluence workflows and operation scope are not defined]**.
 
 ### Key Entities
 
@@ -123,11 +134,14 @@ The project manager edits each non-duplicate draft, approves or rejects it indep
 - **SC-006**: In all tested Jira duplicate-search failure cases, no issue is created for the affected candidate.
 - **SC-007**: Each successful creation displays its Jira key and link, while rejected candidates, skipped duplicates, and failures are distinguishable from successes.
 - **SC-008**: In retry tests with an ambiguous Jira response, the system checks the original operation's state before issuing another create request.
+- **SC-009**: No Confluence operation is performed unless that operation has an approved user scenario, authorization rule, and acceptance criteria in this specification.
 
 ## Assumptions
 
 - The initial release is an internal web application primarily used by a project manager overseeing a 14-person production-support team.
+- The project manager is the only application user in the initial release.
 - The initial workflow processes daily stand-up notes and targets Jira Cloud.
+- Confluence automation is in scope, but the supported operations and content boundaries remain undecided and must be specified before implementation.
 - Text entry and file upload are the initial input methods; exact upload formats remain unconfirmed.
 - Candidate extraction, duplicate screening, draft editing, and per-candidate review occur before Jira issue creation.
 - The configured Jira project supports some or all of the four issue types, subject to validation before creation is enabled.
@@ -143,5 +157,5 @@ The project manager edits each non-duplicate draft, approves or rejects it indep
 - What team roster and Jira account mapping, if any, should be available for owner suggestions?
 - What session persistence, retention, and deletion rules apply?
 - Which extraction provider, if any, is approved, and what data-handling terms apply?
-- Is Confluence automation in scope for a later feature? If so, which read or write operations and approval rules are required?
+- Which Confluence operations are required, which spaces/pages may they access, and what authorization, approval, validation, and error behavior applies?
 - What hosting environment and data-residency constraints apply?
