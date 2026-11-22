@@ -15,6 +15,14 @@ Each entry below is an instruction file with a one-line description. Optional su
   + Keywords: weekly status report, status report, accomplishments, blockers, next week
   + Target: `*.md`, `reports/**/*.md`, `work/**/*.md`
 
+- [`./instructions/format-status-report.agent.md`](./format-status-report.agent.md) — format a weekly status report's Markdown structure and length.
+  + Keywords: format weekly status report, status report structure
+  + Exceptions: follow the complete create-status-report instruction when generating a report.
+
+- [`./instructions/write-status-report-content.agent.md`](./write-status-report-content.agent.md) — write concrete, concise weekly status report content.
+  + Keywords: write status report content, status report tone
+  + Exceptions: follow the complete create-status-report instruction when generating a report.
+
 - [`./instructions/confirm-jira-cloud-config.agent.md`](./confirm-jira-cloud-config.agent.md) — confirm Jira Cloud project, field, issue-type, and value mappings for first-release issue creation.
   + Keywords: Jira Cloud, Jira project key, required fields, issue types, Story, Task, Bug, Spike, priorities, components, labels, field mappings
   + Target: `backlog.md`, `**/*jira*`, `instructions/**/*.md`

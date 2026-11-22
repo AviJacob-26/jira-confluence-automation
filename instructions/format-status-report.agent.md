@@ -1,0 +1,5 @@
+- Generate the report in Markdown format.
+- Use exactly these Markdown section headings, in order: `## Accomplishments`, `## Blockers`, `## Next Week`.
+- Place only bullet points beneath each section heading.
+- Keep the report to a maximum of 20 lines, including section headings.
+- Do not add an introduction, summary, closing, or any other section.

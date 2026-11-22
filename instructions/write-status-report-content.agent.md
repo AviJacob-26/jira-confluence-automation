@@ -1,0 +1,3 @@
+- Use each bullet to describe a concrete outcome, issue, or planned action.
+- Use a professional, direct tone.
+- Exclude fluff words, filler phrases, and unsupported claims.
